@@ -137,7 +137,7 @@ exports.auth = {
 };
 
 exports.trade = {
-    WebPayRequest : trade.WebPayRequest,
+    WapPayRequest : trade.WapPayRequest,
     PayQueryRequest : trade.PayQueryRequest,
     PayCloseRequest : trade.PayCloseRequest,
     PayRefundRequest : trade.PayRefundRequest,

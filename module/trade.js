@@ -76,7 +76,7 @@ class TradeRequest extends AliPayRequest {
 
 
 //手机网站支付接口
-class WebPayRequest extends TradeRequest {
+class WapPayRequest extends TradeRequest {
     
     constructor(){
         super();
@@ -96,7 +96,7 @@ class WebPayRequest extends TradeRequest {
     }
 }
 
-exports.WebPayRequest = WebPayRequest;
+exports.WapPayRequest = WapPayRequest;
 
 
 
