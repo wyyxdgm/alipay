@@ -1,0 +1,22 @@
+{
+  "name": "olipay",
+  "version": "1.0.0",
+  "description": "alipay open api wrap",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/synder/alipay.git"
+  },
+  "keywords": [
+    "alipay"
+  ],
+  "author": "synder",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/synder/alipay/issues"
+  },
+  "homepage": "https://github.com/synder/alipay#readme"
+}
