@@ -100,6 +100,7 @@ class AliPayClient {
         
         if(arguments.length === 1){
             return new Promise(function (resolve, reject) {
+                
                 request(options, function (err, response, body) {
                     if(err){
                         return reject(err);
