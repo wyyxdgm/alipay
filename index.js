@@ -98,7 +98,7 @@ class AliPayClient {
             json: true
         };
 
-        console.log(options)
+        // console.log(options)
         if (arguments.length === 1) {
             return new Promise(function(resolve, reject) {
                 request(options, function(err, response, body) {
@@ -122,8 +122,8 @@ class AliPayClient {
                 }
 
                 let results = aliPayRequest._checkResponse(body);
-                console.log(results);
-                callback(body, results.response);
+                // console.log(results);
+                callback(null, results.response, body);
             });
         }
 
