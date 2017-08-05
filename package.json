@@ -22,6 +22,7 @@
   "dependencies": {
     "crypto": "0.0.3",
     "request": "^2.81.0",
-    "url": "^0.11.0"
+    "url": "^0.11.0",
+    "moment": "^2.18.1"
   }
 }
