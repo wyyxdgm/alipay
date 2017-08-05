@@ -62,7 +62,7 @@ class TradeRequest extends AliPayRequest {
         this.__form = {
             format: 'JSON',
             charset: 'UTF-8',
-            sign_type: 'RSA',
+            sign_type: 'RSA2',
             version: '1.0',
             method: null,
             biz_content: null,

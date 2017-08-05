@@ -15,15 +15,15 @@ const AliPayRequest = require('./lib/request');
 
 class AliPayClient {
 
-    gateway () {
-        if(this.develop === true){
+    gateway() {
+        if (this.develop === true) {
             return {
                 protocol: 'https',
                 host: 'openapi.alipaydev.com',
                 port: 443,
                 pathname: 'gateway.do',
             }
-        }else{
+        } else {
             return {
                 protocol: 'https',
                 host: 'openapi.alipay.com',
@@ -32,99 +32,101 @@ class AliPayClient {
             }
         }
     };
-        
-    constructor(options, develop = false){
+
+    constructor(options, develop = false) {
         this.develop = develop;
         this.appId = options.appId;
         this.appPrivateKey = options.appPrivateKey;
         this.appPublicKey = options.appPublicKey;
         this.appAESKey = options.appAESKey;
         this.aliPayPublicKey = options.aliPayPublicKey;
-        
-        if(!this.appId){
+
+        if (!this.appId) {
             throw new Error('appId should not be null');
         }
-        
-        if(!this.appPrivateKey){
+
+        if (!this.appPrivateKey) {
             throw new Error('appPrivateKey should not be null');
         }
-        
-        if(!this.appPublicKey){
+
+        if (!this.appPublicKey) {
             throw new Error('appPublicKey should not be null');
         }
 
-        if(!this.appAESKey){
+        if (!this.appAESKey) {
             throw new Error('appAESKey should not be null');
         }
 
-        if(!this.aliPayPublicKey){
+        if (!this.aliPayPublicKey) {
             throw new Error('aliPayPublicKey should not be null');
         }
     }
-    
+
     //返回重定向请求URL
-    redirect(aliPayRequest){
-        if(!(aliPayRequest instanceof AliPayRequest)){
+    redirect(aliPayRequest) {
+        if (!(aliPayRequest instanceof AliPayRequest)) {
             throw new Error('request should be a instance of AliPayRequest')
         }
-        
+
         aliPayRequest._setGateway(this.gateway());
         aliPayRequest._setAppId(this.appId);
         aliPayRequest._setAppPrivateKey(this.appPrivateKey);
         aliPayRequest._setAppPublicKey(this.appPublicKey);
         aliPayRequest._setAppAesKey(this.appAESKey);
         aliPayRequest._setAliPublicKey(this.aliPayPublicKey);
-        
+
         return aliPayRequest._getRequestUrl()
     }
-    
+
     //发送请求
-    request(aliPayRequest, callback){
-        
-        if(!(aliPayRequest instanceof AliPayRequest)){
+    request(aliPayRequest, callback) {
+
+        if (!(aliPayRequest instanceof AliPayRequest)) {
             throw new Error('request should be a instance of AliPayRequest')
         }
-        
+
         aliPayRequest._setGateway(this.gateway());
         aliPayRequest._setAppId(this.appId);
         aliPayRequest._setAppPrivateKey(this.appPrivateKey);
         aliPayRequest._setAppPublicKey(this.appPublicKey);
         aliPayRequest._setAppAesKey(this.appAESKey);
         aliPayRequest._setAliPublicKey(this.aliPayPublicKey);
-        
+
         const options = {
             method: aliPayRequest._getRequestMethod(),
             url: aliPayRequest._getRequestUrl(),
             json: true
         };
-        
-        if(arguments.length === 1){
-            return new Promise(function (resolve, reject) {
-                
-                request(options, function (err, response, body) {
-                    if(err){
+
+        console.log(options)
+        if (arguments.length === 1) {
+            return new Promise(function(resolve, reject) {
+                request(options, function(err, response, body) {
+                    // console.log(response, body)
+                    if (err) {
                         return reject(err);
                     }
-                    
+
                     let results = aliPayRequest._checkResponse(body);
 
                     callback(results.error, results.response);
                 });
             });
         }
-        
-        if(typeof callback === 'function'){
-            return request(options, function (err, response, body) {
-                if(err){
+
+        if (typeof callback === 'function') {
+            return request(options, function(err, response, body) {
+                // console.log(response, body)
+                if (err) {
                     return callback(err);
                 }
 
                 let results = aliPayRequest._checkResponse(body);
-                
-                callback(results.error, results.response);
+                console.log(results);
+                callback(body, results.response);
             });
         }
-        
+
         return request(options);
     }
 }
@@ -132,15 +134,15 @@ class AliPayClient {
 exports.AliPayClient = AliPayClient;
 
 exports.auth = {
-    WebLoginRequest : oauth.WebLoginRequest,
-    AccessTokenRequest : oauth.AccessTokenRequest,
-    UserInfoRequest : oauth.UserInfoRequest,
+    WebLoginRequest: oauth.WebLoginRequest,
+    AccessTokenRequest: oauth.AccessTokenRequest,
+    UserInfoRequest: oauth.UserInfoRequest,
 };
 
 exports.trade = {
-    WapPayRequest : trade.WapPayRequest,
-    PayQueryRequest : trade.PayQueryRequest,
-    PayCloseRequest : trade.PayCloseRequest,
-    PayRefundRequest : trade.PayRefundRequest,
-    RefundQueryRequest : trade.RefundQueryRequest,
+    WapPayRequest: trade.WapPayRequest,
+    PayQueryRequest: trade.PayQueryRequest,
+    PayCloseRequest: trade.PayCloseRequest,
+    PayRefundRequest: trade.PayRefundRequest,
+    RefundQueryRequest: trade.RefundQueryRequest,
 };
