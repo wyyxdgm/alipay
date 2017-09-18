@@ -98,7 +98,8 @@ class AliPayClient {
             json: true
         };
 
-        // console.log(options)
+        console.log('alipay--request------');
+        console.log(options);
         if (arguments.length === 1) {
             return new Promise(function(resolve, reject) {
                 request(options, function(err, response, body) {
